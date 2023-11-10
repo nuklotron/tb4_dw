@@ -5,6 +5,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.generics import RetrieveAPIView, UpdateAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
 from users.models import User
 from users.permissions import IsSuper, IsUser
 from users.serializers import UserSerializer
@@ -17,6 +18,7 @@ class LoginUserView(APIView):
     If not, creating new user.
     After check sending SMS with passcode.
     """
+
     def post(self, request):
         username = request.data.get('phone')
         if not User.objects.filter(phone=username).exists():
@@ -43,6 +45,7 @@ class ValidatePasscodeView(APIView):
     Next step before authenticate - validating passcode.
     If passcode correct user obtain his token and getting access for user detail.
     """
+
     def post(self, request):
         username = request.data.get('phone')
         passcode = request.data.get('passcode')
